@@ -16,17 +16,19 @@ knitr::opts_chunk$set(
 
 # Overview
 
-Cancer genomes contain large numbers of somatic alterations but few genes drive tumor development. Identifying molecular cancer driver genes is critical for precision oncology. Most of current approaches either identify driver genes based on mutational recurrence or using estimated scores predicting the functional consequences of mutations. 
+Cancer genomes contain large numbers of somatic alterations but few genes drive tumor development. Identifying cancer driver genes is critical for precision oncology. Most of current approaches either identify driver genes based on mutational recurrence or using estimated scores predicting the functional consequences of mutations. 
 
 `driveR` is a tool for personalized or batch analysis of genomic data for driver gene prioritization by combining genomic information and prior biological knowledge. As features, driveR uses coding impact metaprediction scores, non-coding impact scores, somatic copy number alteration scores, hotspot gene/double-hit gene condition, 'phenolyzer' gene scores and memberships to cancer-related KEGG pathways. It uses these features to estimate cancer-type-specific probabilities for each gene of being a cancer driver using the related task of a multi-task learning classification model.
 
-> For now, the package only supports hg19 genomic positions.
+> For now, the package only supports GRCh37 genomic positions.
+
+The method is described in detail in _Ulgen E, Sezerman OU. 2020. driveR: A Novel Method for Prioritizing Cancer Driver Genes Using Somatic Genomics Data. bioRxiv. [https://doi.org/10.1101/2020.11.10.376707](https://doi.org/10.1101/2020.11.10.376707)_ 
 
 Below are some example usage cases for `driveR`:
 
 # Predicting Impact of Coding Variants
 
-For scoring the impact of coding variants, we devised a metapredictor model that utilizes impact prediction scores from 12 different tools: SIFT, PolyPhen-2 (HumDiv scores), LRT, MutationTaster, Mutation Assessor, FATHMM, GERP++, PhyloP, CADD, VEST, SiPhy and DANN. Annotations for all these tools are available in dbNFSP version 3.0a via ANNOVAR. We provide with the package 2 example (modified) ANNOVAR outputs (see next sections): 
+For scoring the impact of coding variants, we devised a metapredictor model that utilizes impact prediction scores from 12 different tools: SIFT, PolyPhen-2 (HumDiv scores), LRT, MutationTaster, Mutation Assessor, FATHMM, GERP++, PhyloP, CADD, VEST, SiPhy and DANN. Annotations for all these tools are available in dbNFSP via ANNOVAR. We provide with the package 2 example (shortened) ANNOVAR outputs (see next sections): 
 
 ```{r metapred1}
 library(driveR)
@@ -36,23 +38,30 @@ path2annovar_csv <- system.file("extdata/example.hg19_multianno.csv",
 
 We can calculate impact scores for all coding variants in this ANNOVAR file via `predict_coding_impact()`:
 
-```{r metaapred2}
+```{r metapred2}
 metaprediction_df <- predict_coding_impact(annovar_csv_path = path2annovar_csv)
 head(metaprediction_df)
 ```
 
 By default, `predict_coding_impact()` keeps only the maximal score per gene. This behavior can be altered by setting `keep_highest_score = FALSE`:
 
-```{r metaapred3, eval=FALSE}
+```{r metapred3, eval=FALSE}
 metaprediction_df <- predict_coding_impact(annovar_csv_path = path2annovar_csv, 
                                            keep_highest_score = FALSE)
 ```
 
 Also by default, `predict_coding_impact()` keeps only the first gene symbol for genes where multiple symbols were annotated. This behavior can be altered by setting `keep_single_symbol = FALSE`:
 
-```{r metaapred4s, eval=FALSE}
+```{r metapred4, eval=FALSE}
 metaprediction_df <- predict_coding_impact(annovar_csv_path = path2annovar_csv, 
                                            keep_single_symbol = FALSE)
+```
+
+The default `na.string` (string that was used to indicate when a score is not available during annotation with ANNOVAR) is ".", this can be altered via:
+
+```{r metapred5, eval=FALSE}
+metaprediction_df <- predict_coding_impact(annovar_csv_path = path2annovar_csv, 
+                                           na.string = "NA")
 ```
 
 # Driver Gene Prioritization - Personalized Analysis
@@ -78,7 +87,7 @@ As input, `create_features_df()`, the function used to create the features table
 We first run ANNOVAR. An example command provided below:
 
 ```{bash, eval=FALSE}
-table_annovar.pl example.avinput ~/annovar/humandb/ -buildver hg19 -out /path/to/ouput -remove -protocol refGene,cytoBand,exac03,avsnp147,dbnsfp30a,cosmic91_coding,cosmic91_noncoding -operation gx,r,f,f,f,f,f -nastring . -csvout -polish
+table_annovar.pl example.avinput ~/annovar/humandb/ -buildver hg19 -out /path/to/output -remove -protocol refGene,cytoBand,exac03,avsnp150,dbnsfp30a,cosmic92_coding,cosmic92_noncoding -operation gx,r,f,f,f,f,f -nastring . -csvout -polish
 ```
 
 The required filters are, as listed in the above command, `refGene,cytoBand,exac03,avsnp147,dbnsfp30a,cosmic91_coding,cosmic91_noncoding`.
@@ -228,7 +237,7 @@ path2phenolyzer_out <- system.file("extdata/example_cohort.annotated_gene_list",
 
 ## Create the features data frame
 
-After creating the necessary input data (as detailed above), we simply run `create_features_df()` to obtain the features data frame. Notice that we set `batch_analysis = TRUE`. When `batch_analysis = TRUE`, both the ANNOVAR ouput and the SCNA table should have a column named 'tumor_id'.
+After creating the necessary input data (as detailed above), we simply run `create_features_df()` to obtain the features data frame. Notice that we set `batch_analysis = TRUE`. When `batch_analysis = TRUE`, both the ANNOVAR output and the SCNA table should have a column named 'tumor_id'.
 
 ```{r features_df2, eval=FALSE}
 features_df <- create_features_df(annovar_csv_path = path2annovar_csv,

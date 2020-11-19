@@ -18,13 +18,13 @@ MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.or
 <!-- badges: end -->
 
 Cancer genomes contain large numbers of somatic alterations but few
-genes drive tumor development. Identifying molecular cancer driver genes
-is critical for precision oncology. Most of current approaches either
+genes drive tumor development. Identifying cancer driver genes is
+critical for precision oncology. Most of current approaches either
 identify driver genes based on mutational recurrence or using estimated
 scores predicting the functional consequences of mutations.
 
-`driveR` is a tool for personalized or batch analysis of genomic data
-for driver gene prioritization by combining genomic information and
+`driveR` is a tool for personalized or batch analysis of genomics data
+for driver gene prioritization by combining genomics information and
 prior biological knowledge. As features, driveR uses coding impact
 metaprediction scores, non-coding impact scores, somatic copy number
 alteration scores, hotspot gene/double-hit gene condition, ‘phenolyzer’
@@ -33,9 +33,10 @@ these features to estimate cancer-type-specific probabilities for each
 gene of being a cancer driver using the related task of a multi-task
 learning classification model.
 
-The method is described in detail in *Ulgen E, Sezerman U. 2020. driveR:
-A Novel Method for Prioritizing Cancer Driver Genes Using Somatic
-Genomics Data. bioRxiv. <https://doi.org/10.1101/2020.11.10.376707>*
+The method is described in detail in *Ulgen E, Sezerman OU. 2020.
+driveR: A Novel Method for Prioritizing Cancer Driver Genes Using
+Somatic Genomics Data. bioRxiv.
+<https://doi.org/10.1101/2020.11.10.376707>*
 
 ## Installation
 

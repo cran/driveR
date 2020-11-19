@@ -9,17 +9,21 @@ library(driveR)
 path2annovar_csv <- system.file("extdata/example.hg19_multianno.csv",
                                  package = "driveR")
 
-## ----metaapred2---------------------------------------------------------------
+## ----metapred2----------------------------------------------------------------
 metaprediction_df <- predict_coding_impact(annovar_csv_path = path2annovar_csv)
 head(metaprediction_df)
 
-## ----metaapred3, eval=FALSE---------------------------------------------------
+## ----metapred3, eval=FALSE----------------------------------------------------
 #  metaprediction_df <- predict_coding_impact(annovar_csv_path = path2annovar_csv,
 #                                             keep_highest_score = FALSE)
 
-## ----metaapred4s, eval=FALSE--------------------------------------------------
+## ----metapred4, eval=FALSE----------------------------------------------------
 #  metaprediction_df <- predict_coding_impact(annovar_csv_path = path2annovar_csv,
 #                                             keep_single_symbol = FALSE)
+
+## ----metapred5, eval=FALSE----------------------------------------------------
+#  metaprediction_df <- predict_coding_impact(annovar_csv_path = path2annovar_csv,
+#                                             na.string = "NA")
 
 ## ----setup, eval=FALSE--------------------------------------------------------
 #  library(driveR)

@@ -6,10 +6,10 @@
 #'   \item{gene_symbol}{HGNC gene symbol}
 #'   \item{CADD_phred}{PHRED-scaled CADD score}
 #' }
-create_noncoding_impact_score_df <- function(annovar_csv_path) {
+create_noncoding_impact_score_df <- function(annovar_csv_path, na.string = ".") {
     annovar_df <- utils::read.csv(annovar_csv_path)
     noncoding_df <- annovar_df[annovar_df$Func.refGene != "exonic", ]
-    noncoding_df <- noncoding_df[noncoding_df$CADD_phred != ".", ]
+    noncoding_df <- noncoding_df[noncoding_df$CADD_phred != na.string, ]
     noncoding_df$CADD_phred <- as.numeric(noncoding_df$CADD_phred)
     noncoding_scores_df <- noncoding_df[, c("Gene.refGene", "CADD_phred")]
     colnames(noncoding_scores_df) <- c("gene_symbol", "CADD_score")
@@ -103,7 +103,7 @@ create_gene_level_scna_df <- function(scna_df, gene_overlap_threshold = 25) {
 #' @param MCR_overlap_threshold the percentage threshold for the overlap between
 #' a gene and an MCR region (default = 25). This means that if only a gene
 #' overlaps an MCR region more than this threshold, the gene is assigned the
-#' MCR's SCNA density
+#' SCNA density of the MCR
 #'
 #' @return data frame of SCNA proxy scores containing 2 columns: \describe{
 #'   \item{gene_symbol}{HGNC gene symbol}
@@ -143,6 +143,8 @@ create_SCNA_score_df <- function(gene_SCNA_df,
     gene_agg_df <- gene_SCNA_df[, c("symbol", "chr", "transcript_start", "transcript_end")]
     gene_agg_df <- gene_agg_df[!duplicated(gene_agg_df$symbol), ]
     gene_agg_df$agg_log2_ratio <- agg_ratios[match(gene_agg_df$symbol, names(agg_ratios))]
+
+    gene_agg_df <- gene_agg_df[!is.na(gene_agg_df$agg_log2_ratio), ]
 
     # filter for high confidence
     gene_agg_df <- gene_agg_df[abs(gene_agg_df$agg_log2_ratio) > log2_ratio_threshold, ]
@@ -188,7 +190,7 @@ create_SCNA_score_df <- function(gene_SCNA_df,
 
     tmp1 <- apply(final_scna_df[, c("MCR_end", "transcript_end")], 1, min)
     tmp2 <- apply(final_scna_df[, c("transcript_start", "MCR_start")], 1, max)
-    final_scna_df$transcript_overlap_percent <- (tmp1 - tmp2) / (final_scna_df$MCR_end - final_scna_df$MCR_start) * 100
+    final_scna_df$MCR_overlap_percent <- (tmp1 - tmp2) / (final_scna_df$MCR_end - final_scna_df$MCR_start) * 100
 
     # filter for `MCR_overlap_threshold`
     final_scna_df <- final_scna_df[final_scna_df$MCR_overlap_percent >= MCR_overlap_threshold, ]
@@ -219,7 +221,10 @@ determine_hotspot_genes <- function(annovar_csv_path, hotspot_threshold = 5L) {
     annovar_df <- utils::read.csv(annovar_csv_path)
 
     # parse COSMIC occurences
-    annovar_df$coding_occurence <- vapply(annovar_df$cosmic91_coding,
+    coding_column <- colnames(annovar_df)[grepl("cosmic\\d+_coding", colnames(annovar_df))]
+    non_coding_column <- colnames(annovar_df)[grepl("cosmic\\d+_noncoding", colnames(annovar_df))]
+
+    annovar_df$coding_occurence <- vapply(annovar_df[, coding_column],
                                           function(x) {
                                               tmp <- unlist(strsplit(x, ";"))[2]
                                               tmp <- sub("OCCURENCE=", "", tmp)
@@ -228,7 +233,7 @@ determine_hotspot_genes <- function(annovar_csv_path, hotspot_threshold = 5L) {
                                               return(sum(tmp))
                                           }, 1)
 
-    annovar_df$noncoding_occurence <- vapply(annovar_df$cosmic91_noncoding,
+    annovar_df$noncoding_occurence <- vapply(annovar_df[, non_coding_column],
                                              function(x) {
                                                  tmp <- unlist(strsplit(x, ";"))[2]
                                                  tmp <- sub("OCCURENCE=", "", tmp)
@@ -263,7 +268,7 @@ determine_hotspot_genes <- function(annovar_csv_path, hotspot_threshold = 5L) {
 #' table.
 #'
 #' @return vector of gene symbols that are subject to double-hit event(s), i.e.
-#' non-synonymous mutation + homozygous CN loss
+#' non-synonymous mutation + homozygous copy-number loss
 determine_double_hit_genes <- function(annovar_csv_path,
                                        gene_SCNA_df,
                                        log2_hom_loss_threshold = -1,
@@ -278,10 +283,12 @@ determine_double_hit_genes <- function(annovar_csv_path,
     ### gene-level hom. loss df
     # keep only hom. loss
     loss_genes_df <- gene_SCNA_df[gene_SCNA_df$log2ratio < log2_hom_loss_threshold, ]
+    # discard sex chromosomes
+    loss_genes_df <- loss_genes_df[!loss_genes_df$chr %in% c("chrX", "chrY"), ]
 
     ### non-synonymous mutations df
     annovar_df <- utils::read.csv(annovar_csv_path)
-    # exclude synonymous mutatios
+    # exclude synonymous mutations
     non_syn_df <- annovar_df[annovar_df$ExonicFunc.refGene != "synonymous SNV", ]
     # keep first symbol if multiple symbols exist
     non_syn_df$Gene.refGene[grepl(";", non_syn_df$Gene.refGene)] <- vapply(non_syn_df$Gene.refGene[grepl(";", non_syn_df$Gene.refGene)], function(x) unlist(strsplit(x, ";"))[1], "char")
@@ -289,27 +296,27 @@ determine_double_hit_genes <- function(annovar_csv_path,
     ### determine double-hit genes
     if (batch_analysis) {
         if (!("tumor_id" %in% colnames(non_syn_df) & "tumor_id" %in% colnames(loss_genes_df)))
-            stop("'tumor id' should be present in both ANNOVAR output and SCNA table if `tumor_id == TRUE`")
+            stop("'tumor id' should be present in both ANNOVAR output and SCNA table if `batch_analysis == TRUE`")
 
         all_donors <- unique(non_syn_df$tumor_id)
         all_donors <- all_donors[all_donors %in% loss_genes_df$tumor_id]
 
         dhit_genes <- c()
         for (donor in all_donors) {
-            tmp <- loss_genes_df[loss_genes_df$tumor_id == donor, ]
-            tmp <- unique(tmp$symbol)
+            tmp_loss <- loss_genes_df[loss_genes_df$tumor_id == donor, ]
+            tmp_loss <- unique(tmp_loss$symbol)
 
-            tmp2 <- non_syn_df$Gene.refGene[non_syn_df$tumor_id == donor]
+            tmp_nonsyn <- non_syn_df$Gene.refGene[non_syn_df$tumor_id == donor]
 
-            dhit <- tmp[tmp %in% tmp2]
+            dhit <- intersect(tmp_loss, tmp_nonsyn)
             if (length(dhit) != 0)
                 dhit_genes <- c(dhit_genes, dhit)
         }
         dhit_genes <- unique(dhit_genes)
     } else {
-        tmp <- unique(loss_genes_df$symbol)
-        tmp2 <- unique(non_syn_df$Gene.refGene)
-        dhit_genes <- tmp[tmp %in% tmp2]
+        tmp_loss <- unique(loss_genes_df$symbol)
+        tmp_nonsyn <- unique(non_syn_df$Gene.refGene)
+        dhit_genes <- intersect(tmp_loss, tmp_nonsyn)
     }
     return(dhit_genes)
 }
