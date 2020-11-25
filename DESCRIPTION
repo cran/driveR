@@ -1,6 +1,6 @@
 Package: driveR
 Title: Prioritizing Cancer Driver Genes Using Genomics Data
-Version: 0.2.0
+Version: 0.2.1
 Authors@R: 
     person(given = "Ege",
            family = "Ulgen",
@@ -32,15 +32,14 @@ URL: https://egeulgen.github.io/driveR/,
         https://github.com/egeulgen/driveR/
 BugReports: https://github.com/egeulgen/driveR/issues
 biocViews:
-Imports: caret, randomForest, Homo.sapiens, GenomicRanges,
-        GenomeInfoDb, GenomicFeatures,
-        TxDb.Hsapiens.UCSC.hg19.knownGene, S4Vectors, org.Hs.eg.db,
-        rlang
+Imports: caret, randomForest, GenomicRanges, GenomeInfoDb,
+        GenomicFeatures, TxDb.Hsapiens.UCSC.hg19.knownGene, S4Vectors,
+        org.Hs.eg.db, rlang
 Depends: R (>= 4.0)
 Suggests: testthat, covr, knitr, rmarkdown
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2020-11-19 11:42:10 UTC; egeulgen
+Packaged: 2020-11-25 21:13:47 UTC; egeulgen
 Author: Ege Ulgen [aut, cre, cph] (<https://orcid.org/0000-0003-2090-3621>)
 Repository: CRAN
-Date/Publication: 2020-11-19 21:40:17 UTC
+Date/Publication: 2020-11-26 00:30:03 UTC

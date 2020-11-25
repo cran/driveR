@@ -17,6 +17,8 @@
 #'
 #' @export
 #'
+#' @importFrom randomForest randomForest
+#'
 #' @examples
 #' path2annovar_csv <- system.file("extdata/example.hg19_multianno.csv",
 #'                                 package = "driveR")
@@ -93,7 +95,7 @@ predict_coding_impact <- function(annovar_csv_path,
 
 
     # Predict metapredictor probabilities
-    pred_df <- stats::predict(metapredictor_model, newdata = annovar_df, type = "prob")
+    pred_df <- caret::predict.train(metapredictor_model, newdata = annovar_df, type = "prob")
     annovar_df$metaprediction_score <- pred_df$non.neutral
 
     metapred_scores_df <- annovar_df[, c("Gene.refGene", "metaprediction_score")]
