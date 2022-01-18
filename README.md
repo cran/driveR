@@ -8,11 +8,11 @@
 [![CRAN
 version](http://www.r-pkg.org/badges/version-ago/driveR)](https://cran.r-project.org/package=driveR)
 [![Travis build
-status](https://travis-ci.com/egeulgen/driveR.svg?branch=master)](https://travis-ci.com/egeulgen/driveR)
+status](https://app.travis-ci.com/egeulgen/pathfindR.data.svg?branch=master)](https://app.travis-ci.com/github/egeulgen/driveR)
 [![Codecov test
-coverage](https://codecov.io/gh/egeulgen/driveR/branch/master/graph/badge.svg)](https://codecov.io/gh/egeulgen/driveR?branch=master)
+coverage](https://codecov.io/gh/egeulgen/driveR/branch/master/graph/badge.svg)](https://app.codecov.io/gh/egeulgen/driveR?branch=master)
 [![Lifecycle:
-maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+stable](https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 <!-- badges: end -->
@@ -33,10 +33,10 @@ these features to estimate cancer-type-specific probabilities for each
 gene of being a cancer driver using the related task of a multi-task
 learning classification model.
 
-The method is described in detail in *Ulgen E, Sezerman OU. 2020.
-driveR: A Novel Method for Prioritizing Cancer Driver Genes Using
-Somatic Genomics Data. bioRxiv.
-<https://doi.org/10.1101/2020.11.10.376707>*
+The method is described in detail in *Ülgen E, Sezerman OU. driveR: a
+novel method for prioritizing cancer driver genes using somatic genomics
+data. BMC Bioinformatics. 2021 May
+24;22(1):263.<https://doi.org/10.1186/s12859-021-04203-7>*
 
 ## Installation
 
@@ -57,8 +57,7 @@ devtools::install_github("egeulgen/driveR", build_vignettes = TRUE)
 ## Usage
 
 ![driveR
-workflow](https://github.com/egeulgen/driveR/blob/master/inst/extdata/driver_workflow.png?raw=true
-"driveR workflow")
+workflow](https://github.com/egeulgen/driveR/blob/master/inst/extdata/driver_workflow.png?raw=true "driveR workflow")
 
 `driveR` has two main objectives:
 

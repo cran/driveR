@@ -1,3 +1,13 @@
+# driveR 0.3.0
+
+## Major Changes
+- Updated the cancer-type-specific thresholds
+
+## Minor changes and bug fixes
+- Updated citation to the method's article where necessary
+
+***
+
 # driveR 0.2.1
 
 ## Major Changes
