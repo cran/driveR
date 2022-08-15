@@ -38,7 +38,8 @@ head(example_scna_table)
 ## ----phenolyzer_input,eval=FALSE----------------------------------------------
 #  phenolyzer_genes <- create_features_df(annovar_csv_path = path2annovar_csv,
 #                                         scna_df = example_scna_table,
-#                                         prep_phenolyzer_input = TRUE)
+#                                         prep_phenolyzer_input = TRUE,
+#                                         build = "GRCh37")
 
 ## ----save_phenolyzer_input, eval=FALSE----------------------------------------
 #  write.table(x = data.frame(gene = phenolyzer_genes),
@@ -52,7 +53,8 @@ path2phenolyzer_out <- system.file("extdata/example.annotated_gene_list",
 ## ----features_df, eval=FALSE--------------------------------------------------
 #  features_df <- create_features_df(annovar_csv_path = path2annovar_csv,
 #                                    scna_df = example_scna_table,
-#                                    phenolyzer_annotated_gene_list_path = path2phenolyzer_out)
+#                                    phenolyzer_annotated_gene_list_path = path2phenolyzer_out,
+#                                    build = "GRCh37")
 
 ## ----features_df_load, echo=FALSE---------------------------------------------
 features_df <- example_features_table

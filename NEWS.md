@@ -1,3 +1,10 @@
+# driveR 0.4.0
+
+## Major Changes
+- Added GRCh38 support
+
+***
+
 # driveR 0.3.0
 
 ## Major Changes

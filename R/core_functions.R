@@ -188,6 +188,7 @@ create_features_df <- function(annovar_csv_path,
                                phenolyzer_annotated_gene_list_path,
                                batch_analysis = FALSE,
                                prep_phenolyzer_input = FALSE,
+                               build = "GRCh37",
                                log2_ratio_threshold = 0.25,
                                gene_overlap_threshold = 25,
                                MCR_overlap_threshold = 25,
@@ -216,12 +217,14 @@ create_features_df <- function(annovar_csv_path,
     if (verbose)
         message("Determining gene-level SCNAs (This may take a while)")
     gene_SCNA_df <- create_gene_level_scna_df(scna_df = scna_df,
+                                              build = build,
                                               gene_overlap_threshold = gene_overlap_threshold)
 
     # SCNA scores
     if (verbose)
         message("Scoring SCNA events")
     scna_scores_df <- create_SCNA_score_df(gene_SCNA_df = gene_SCNA_df,
+                                           build = build,
                                            log2_ratio_threshold = log2_ratio_threshold,
                                            MCR_overlap_threshold = MCR_overlap_threshold)
 
@@ -344,7 +347,6 @@ create_features_df <- function(annovar_csv_path,
 #' drivers_df <- prioritize_driver_genes(example_features_table, "LUAD")
 #'
 #' @seealso \code{\link{create_features_df}} for creating the features table.
-#' \code{\link{TCGA_MTL_fit}} for details on the MTL model used for prediction.
 prioritize_driver_genes <- function(features_df, cancer_type) {
     # argument checks
     if (!is.data.frame(features_df))

@@ -14,7 +14,19 @@
 
 <title>How to use driveR</title>
 
-<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -24,6 +36,7 @@
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
     </style>
+
 
 
 <style type="text/css">
@@ -125,7 +138,187 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
 
 
 
@@ -143,21 +336,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div id="overview" class="section level1">
 <h1>Overview</h1>
-<p>Cancer genomes contain large numbers of somatic alterations but few genes drive tumor development. Identifying cancer driver genes is critical for precision oncology. Most of current approaches either identify driver genes based on mutational recurrence or using estimated scores predicting the functional consequences of mutations.</p>
-<p><code>driveR</code> is a tool for personalized or batch analysis of genomic data for driver gene prioritization by combining genomic information and prior biological knowledge. As features, driveR uses coding impact metaprediction scores, non-coding impact scores, somatic copy number alteration scores, hotspot gene/double-hit gene condition, ‘phenolyzer’ gene scores and memberships to cancer-related KEGG pathways. It uses these features to estimate cancer-type-specific probabilities for each gene of being a cancer driver using the related task of a multi-task learning classification model.</p>
+<p>Cancer genomes contain large numbers of somatic alterations but few
+genes drive tumor development. Identifying cancer driver genes is
+critical for precision oncology. Most of current approaches either
+identify driver genes based on mutational recurrence or using estimated
+scores predicting the functional consequences of mutations.</p>
+<p><code>driveR</code> is a tool for personalized or batch analysis of
+genomic data for driver gene prioritization by combining genomic
+information and prior biological knowledge. As features, driveR uses
+coding impact metaprediction scores, non-coding impact scores, somatic
+copy number alteration scores, hotspot gene/double-hit gene condition,
+‘phenolyzer’ gene scores and memberships to cancer-related KEGG
+pathways. It uses these features to estimate cancer-type-specific
+probabilities for each gene of being a cancer driver using the related
+task of a multi-task learning classification model.</p>
 <blockquote>
-<p>For now, the package only supports GRCh37 genomic positions.</p>
+<p>The package supports GRCh37 (default) and GRCh38 genomic positions,
+which can be specified via the <code>build</code> argument.</p>
 </blockquote>
-<p>The method is described in detail in <em>Ülgen E, Sezerman OU. driveR: a novel method for prioritizing cancer driver genes using somatic genomics data. BMC Bioinformatics. 2021 May 24;22(1):263.<a href="https://doi.org/10.1186/s12859-021-04203-7">https://doi.org/10.1186/s12859-021-04203-7</a></em></p>
+<p>The method is described in detail in <em>Ülgen E, Sezerman OU.
+driveR: a novel method for prioritizing cancer driver genes using
+somatic genomics data. BMC Bioinformatics. 2021 May 24;22(1):263.<a href="https://doi.org/10.1186/s12859-021-04203-7">https://doi.org/10.1186/s12859-021-04203-7</a></em></p>
 <p>Below are some example usage cases for <code>driveR</code>:</p>
 </div>
 <div id="predicting-impact-of-coding-variants" class="section level1">
 <h1>Predicting Impact of Coding Variants</h1>
-<p>For scoring the impact of coding variants, we devised a metapredictor model that utilizes impact prediction scores from 12 different tools: SIFT, PolyPhen-2 (HumDiv scores), LRT, MutationTaster, Mutation Assessor, FATHMM, GERP++, PhyloP, CADD, VEST, SiPhy and DANN. Annotations for all these tools are available in dbNFSP via ANNOVAR. We provide with the package 2 example (shortened) ANNOVAR outputs (see next sections):</p>
+<p>For scoring the impact of coding variants, we devised a metapredictor
+model that utilizes impact prediction scores from 12 different tools:
+SIFT, PolyPhen-2 (HumDiv scores), LRT, MutationTaster, Mutation
+Assessor, FATHMM, GERP++, PhyloP, CADD, VEST, SiPhy and DANN.
+Annotations for all these tools are available in dbNFSP via ANNOVAR. We
+provide with the package 2 example (shortened) ANNOVAR outputs (see next
+sections):</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(driveR)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>path2annovar_csv <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;extdata/example.hg19_multianno.csv&quot;</span>,</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">package =</span> <span class="st">&quot;driveR&quot;</span>)</span></code></pre></div>
-<p>We can calculate impact scores for all coding variants in this ANNOVAR file via <code>predict_coding_impact()</code>:</p>
+<p>We can calculate impact scores for all coding variants in this
+ANNOVAR file via <code>predict_coding_impact()</code>:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>metaprediction_df <span class="ot">&lt;-</span> <span class="fu">predict_coding_impact</span>(<span class="at">annovar_csv_path =</span> path2annovar_csv)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(metaprediction_df)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       gene_symbol metaprediction_score</span></span>
@@ -167,40 +382,58 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8510        GPAT3                1.000</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10040        GUSB                1.000</span></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 854      SELENBP1                0.998</span></span></code></pre></div>
-<p>By default, <code>predict_coding_impact()</code> keeps only the maximal score per gene. This behavior can be altered by setting <code>keep_highest_score = FALSE</code>:</p>
+<p>By default, <code>predict_coding_impact()</code> keeps only the
+maximal score per gene. This behavior can be altered by setting
+<code>keep_highest_score = FALSE</code>:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>metaprediction_df <span class="ot">&lt;-</span> <span class="fu">predict_coding_impact</span>(<span class="at">annovar_csv_path =</span> path2annovar_csv, </span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">keep_highest_score =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<p>Also by default, <code>predict_coding_impact()</code> keeps only the first gene symbol for genes where multiple symbols were annotated. This behavior can be altered by setting <code>keep_single_symbol = FALSE</code>:</p>
+<p>Also by default, <code>predict_coding_impact()</code> keeps only the
+first gene symbol for genes where multiple symbols were annotated. This
+behavior can be altered by setting
+<code>keep_single_symbol = FALSE</code>:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>metaprediction_df <span class="ot">&lt;-</span> <span class="fu">predict_coding_impact</span>(<span class="at">annovar_csv_path =</span> path2annovar_csv, </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">keep_single_symbol =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<p>The default <code>na.string</code> (string that was used to indicate when a score is not available during annotation with ANNOVAR) is “.”, this can be altered via:</p>
+<p>The default <code>na.string</code> (string that was used to indicate
+when a score is not available during annotation with ANNOVAR) is “.”,
+this can be altered via:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>metaprediction_df <span class="ot">&lt;-</span> <span class="fu">predict_coding_impact</span>(<span class="at">annovar_csv_path =</span> path2annovar_csv, </span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">na.string =</span> <span class="st">&quot;NA&quot;</span>)</span></code></pre></div>
 </div>
 <div id="driver-gene-prioritization---personalized-analysis" class="section level1">
 <h1>Driver Gene Prioritization - Personalized Analysis</h1>
-<p>Below, a step-by-step work flow for <code>driveR</code> for an individual tumor sample is provided. Note that some steps require operations outside of R. The example data provided within the package are for a lung adenocarcinoma patient studied in Imielinski et al. <a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<p>Below, a step-by-step work flow for <code>driveR</code> for an
+individual tumor sample is provided. Note that some steps require
+operations outside of R. The example data provided within the package
+are for a lung adenocarcinoma patient studied in Imielinski et al. <a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
 <div id="load-the-package-and-prepare-input-data" class="section level2">
 <h2>Load the package and prepare input data</h2>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(driveR)</span></code></pre></div>
-<p>As input, <code>create_features_df()</code>, the function used to create the features table for driver gene prioritization, requires the following:</p>
+<p>As input, <code>create_features_df()</code>, the function used to
+create the features table for driver gene prioritization, requires the
+following:</p>
 <ul>
-<li><code>annovar_csv_path</code>: the <code>/path/to/ANNOVAR/csv/output/file</code></li>
-<li><code>scna_df</code>: a data frame containing SCNA segments, containing the columns “chr”, “start”, “end” and “log2ratio”</li>
-<li><code>phenolyzer_annotated_gene_list_path</code>: the <code>/path/to/phenolyzer/annotated_gene_list/output/file</code></li>
+<li><code>annovar_csv_path</code>: the
+<code>/path/to/ANNOVAR/csv/output/file</code></li>
+<li><code>scna_df</code>: a data frame containing SCNA segments,
+containing the columns “chr”, “start”, “end” and “log2ratio”</li>
+<li><code>phenolyzer_annotated_gene_list_path</code>: the
+<code>/path/to/phenolyzer/annotated_gene_list/output/file</code></li>
 </ul>
 <div id="annovar-csv-output" class="section level3">
 <h3>ANNOVAR CSV output</h3>
 <p>We first run ANNOVAR. An example command provided below:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">table_annovar.pl</span> example.avinput ~/annovar/humandb/ <span class="at">-buildver</span> hg19 <span class="at">-out</span> /path/to/output <span class="at">-remove</span> <span class="at">-protocol</span> refGene,cytoBand,exac03,avsnp150,dbnsfp30a,cosmic92_coding,cosmic92_noncoding <span class="at">-operation</span> gx,r,f,f,f,f,f <span class="at">-nastring</span> . <span class="at">-csvout</span> <span class="at">-polish</span></span></code></pre></div>
-<p>The required filters are, as listed in the above command, <code>refGene,cytoBand,exac03,avsnp147,dbnsfp30a,cosmic91_coding,cosmic91_noncoding</code>.</p>
-<p>With the package, an example (modified) ANNOVAR csv output file is available:</p>
+<p>The required filters are, as listed in the above command,
+<code>refGene,cytoBand,exac03,avsnp147,dbnsfp30a,cosmic91_coding,cosmic91_noncoding</code>.</p>
+<p>With the package, an example (modified) ANNOVAR csv output file is
+available:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>path2annovar_csv <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;extdata/example.hg19_multianno.csv&quot;</span>,</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">package =</span> <span class="st">&quot;driveR&quot;</span>)</span></code></pre></div>
 </div>
 <div id="scna-table" class="section level3">
 <h3>SCNA table</h3>
-<p>Next, we prepare a SCNA data frame (GRCh37 is required). Again, an example data frame is provided within the package:</p>
+<p>Next, we prepare a SCNA data frame (GRCh37 or GRCh38). Again, an
+example data frame (GRCh37) is provided within the package:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(example_scna_table)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   chr   start     end log2ratio</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1   1       1    9001 0.8875253</span></span>
@@ -212,31 +445,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="phenolyzer-output" class="section level3">
 <h3>phenolyzer output</h3>
-<p>Finally, for the phenolyzer annotated_gene_list output file, we first obtain the genes to be scored using <code>create_features_df</code> and setting <code>prep_phenolyzer_input=TRUE</code>:</p>
+<p>Finally, for the phenolyzer annotated_gene_list output file, we first
+obtain the genes to be scored using <code>create_features_df</code> and
+setting <code>prep_phenolyzer_input=TRUE</code>:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>phenolyzer_genes <span class="ot">&lt;-</span> <span class="fu">create_features_df</span>(<span class="at">annovar_csv_path =</span> path2annovar_csv,</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">scna_df =</span> example_scna_table,</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">prep_phenolyzer_input =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">prep_phenolyzer_input =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">build =</span> <span class="st">&quot;GRCh37&quot;</span>)</span></code></pre></div>
 <p>Next, we save these genes to be used as input for phenolyzer:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(<span class="at">x =</span> <span class="fu">data.frame</span>(<span class="at">gene =</span> phenolyzer_genes), </span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">file =</span> <span class="st">&quot;input_genes.txt&quot;</span>, </span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">row.names =</span> <span class="cn">FALSE</span>, <span class="at">col.names =</span> <span class="cn">FALSE</span>, <span class="at">quote =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<p>We create another text file, named <code>phenolyzer_disease.txt</code>, containing the phenotype (i.e. cancer type. in this case “lung adenocarcinoma”) to be used for scoring with phenolyzer. An example command for running phenolyzer is provided below:</p>
+<p>We create another text file, named
+<code>phenolyzer_disease.txt</code>, containing the phenotype
+(i.e. cancer type. in this case “lung adenocarcinoma”) to be used for
+scoring with phenolyzer. An example command for running phenolyzer is
+provided below:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">perl</span> ~/phenolyzer/disease_annotation.pl <span class="at">-f</span> phenolyzer_disease.txt <span class="at">-prediction</span> <span class="at">-phenotype</span> <span class="at">-logistic</span> <span class="at">--gene</span> input_genes.txt <span class="at">-out</span> phenolyzer_out/example</span></code></pre></div>
-<p>This should produce, among other outputs, the annotated_gene_list output file. An example annotated_gene_list output file is provided within the package:</p>
+<p>This should produce, among other outputs, the annotated_gene_list
+output file. An example annotated_gene_list output file is provided
+within the package:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>path2phenolyzer_out <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;extdata/example.annotated_gene_list&quot;</span>,</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">package =</span> <span class="st">&quot;driveR&quot;</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="create-the-features-data-frame" class="section level2">
 <h2>Create the features data frame</h2>
-<p>After creating the necessary input data (as detailed above), we simply run <code>create_features_df()</code> to obtain the features data frame:</p>
+<p>After creating the necessary input data (as detailed above), we
+simply run <code>create_features_df()</code> to obtain the features data
+frame:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>features_df <span class="ot">&lt;-</span> <span class="fu">create_features_df</span>(<span class="at">annovar_csv_path =</span> path2annovar_csv,</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">scna_df =</span> example_scna_table, </span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">phenolyzer_annotated_gene_list_path =</span> path2phenolyzer_out)</span></code></pre></div>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">phenolyzer_annotated_gene_list_path =</span> path2phenolyzer_out,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">build =</span> <span class="st">&quot;GRCh37&quot;</span>)</span></code></pre></div>
 </div>
 <div id="prioritize-cancer-driver-genes" class="section level2">
 <h2>Prioritize cancer driver genes</h2>
-<p>Finally, we can prioritize cancer driver genes using <code>prioritize_driver_genes()</code>. For this function, <code>cancer_type</code> can be of the short names for the 21 different cancer types that was used to train the multi-task learning model utilized in this package:</p>
+<p>Finally, we can prioritize cancer driver genes using
+<code>prioritize_driver_genes()</code>. For this function,
+<code>cancer_type</code> can be of the short names for the 21 different
+cancer types that was used to train the multi-task learning model
+utilized in this package:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(MTL_submodel_descriptions)</span></code></pre></div>
 <table>
 <thead>
@@ -347,31 +596,53 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 740         IL7R       0.4271572 non-driver</span></span>
 <span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3572      PIK3R2       0.3780803 non-driver</span></span>
 <span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2300         ATR       0.3666499 non-driver</span></span></code></pre></div>
-<p>The function returns a data frame of genes with probabilities of being cancer driver genes (using the selected sub-model of a multi-task learning model trained using 21 different cancer types) and the prediction of driver genes based on a cancer type specific probability threshold. In the above example, the top 10 genes contain recognizable cancer driver genes.</p>
+<p>The function returns a data frame of genes with probabilities of
+being cancer driver genes (using the selected sub-model of a multi-task
+learning model trained using 21 different cancer types) and the
+prediction of driver genes based on a cancer type specific probability
+threshold. In the above example, the top 10 genes contain recognizable
+cancer driver genes.</p>
 </div>
 </div>
 <div id="driver-gene-prioritization---batch-analysis" class="section level1">
 <h1>Driver Gene Prioritization - Batch Analysis</h1>
-<p>Below, a step-by-step work flow for <code>driveR</code> for a cohort of tumor samples is provided. Note that some steps require operations outside of R. The example data provided within the package are for 10 randomly-selected samples from The Cancer Genome Atlas (TCGA) program’s LAML (Acute Myeloid Leukemia) cohort.</p>
+<p>Below, a step-by-step work flow for <code>driveR</code> for a cohort
+of tumor samples is provided. Note that some steps require operations
+outside of R. The example data provided within the package are for 10
+randomly-selected samples from The Cancer Genome Atlas (TCGA) program’s
+LAML (Acute Myeloid Leukemia) cohort.</p>
 <div id="load-the-package-and-prepare-input-data-1" class="section level2">
 <h2>Load the package and prepare input data</h2>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(driveR)</span></code></pre></div>
-<p>As before, as input, <code>create_features_df()</code>, the function used to create the features table for driver gene prioritization, requires the following:</p>
+<p>As before, as input, <code>create_features_df()</code>, the function
+used to create the features table for driver gene prioritization,
+requires the following:</p>
 <ul>
-<li><code>annovar_csv_path</code>: the <code>/path/to/ANNOVAR/csv/output/file</code></li>
-<li><code>scna_df</code>: a data frame containing SCNA segments, containing the columns “chr”, “start”, “end”, “log2ratio” and <strong>“tumor_id”</strong></li>
-<li><code>phenolyzer_annotated_gene_list_path</code>: the <code>/path/to/phenolyzer/annotated_gene_list/output/file</code></li>
+<li><code>annovar_csv_path</code>: the
+<code>/path/to/ANNOVAR/csv/output/file</code></li>
+<li><code>scna_df</code>: a data frame containing SCNA segments,
+containing the columns “chr”, “start”, “end”, “log2ratio” and
+<strong>“tumor_id”</strong></li>
+<li><code>phenolyzer_annotated_gene_list_path</code>: the
+<code>/path/to/phenolyzer/annotated_gene_list/output/file</code></li>
 </ul>
 <div id="annovar-csv-output-1" class="section level3">
 <h3>ANNOVAR CSV output</h3>
-<p>The required filters are again, as listed in the example ANNOVAR command above, <code>refGene,cytoBand,exac03,avsnp147,dbnsfp30a,cosmic91_coding,cosmic91_noncoding</code>. Additionally, for cohort-level analysis, a column named <code>tumor_id</code> is required, containing tumor id of each variant.</p>
-<p>With the package, an example cohort-level (modified) ANNOVAR csv output file is available:</p>
+<p>The required filters are again, as listed in the example ANNOVAR
+command above,
+<code>refGene,cytoBand,exac03,avsnp147,dbnsfp30a,cosmic91_coding,cosmic91_noncoding</code>.
+Additionally, for cohort-level analysis, a column named
+<code>tumor_id</code> is required, containing tumor id of each
+variant.</p>
+<p>With the package, an example cohort-level (modified) ANNOVAR csv
+output file is available:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>path2annovar_csv <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;extdata/example_cohort.hg19_multianno.csv&quot;</span>,</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">package =</span> <span class="st">&quot;driveR&quot;</span>)</span></code></pre></div>
 </div>
 <div id="scna-table-1" class="section level3">
 <h3>SCNA table</h3>
-<p>Next, we prepare a SCNA data frame (GRCh37 is required). Again, an example data frame is provided within the package:</p>
+<p>Next, we prepare a SCNA data frame (GRCh37 is required). Again, an
+example data frame is provided within the package:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(example_cohort_scna_table)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       chr     start       end log2ratio tumor_id</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 29597  22  25922342  42892582   -0.0085  DO21131</span></span>
@@ -380,11 +651,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 29600  13  58814227  62806981    0.0023  DO21131</span></span>
 <span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 29601   2 208354955 208359336   -0.8954  DO21131</span></span>
 <span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 29602   5 117388963 120417166   -0.0114  DO21131</span></span></code></pre></div>
-<p>Again, for cohort-level analysis, it’s crucial to have a column named <code>tumor_id</code> is required, containing tumor id for each SCNA segment.</p>
+<p>Again, for cohort-level analysis, it’s crucial to have a column named
+<code>tumor_id</code> is required, containing tumor id for each SCNA
+segment.</p>
 </div>
 <div id="phenolyzer-output-1" class="section level3">
 <h3>phenolyzer output</h3>
-<p>Finally, for the phenolyzer annotated_gene_list output file, we first obtain the genes to be scored using <code>create_features_df</code> and setting <code>prep_phenolyzer_input=TRUE</code>:</p>
+<p>Finally, for the phenolyzer annotated_gene_list output file, we first
+obtain the genes to be scored using <code>create_features_df</code> and
+setting <code>prep_phenolyzer_input=TRUE</code>:</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>phenolyzer_genes <span class="ot">&lt;-</span> <span class="fu">create_features_df</span>(<span class="at">annovar_csv_path =</span> path2annovar_csv,</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">scna_df =</span> example_cohort_scna_table,</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">prep_phenolyzer_input =</span> <span class="cn">TRUE</span>,</span>
@@ -393,16 +668,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(<span class="at">x =</span> <span class="fu">data.frame</span>(<span class="at">gene =</span> phenolyzer_genes), </span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">file =</span> <span class="st">&quot;input_genes.txt&quot;</span>, </span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">row.names =</span> <span class="cn">FALSE</span>, <span class="at">col.names =</span> <span class="cn">FALSE</span>, <span class="at">quote =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<p>We create another text file, named <code>phenolyzer_disease.txt</code>, containing the phenotype (i.e. cancer type. in this case “acute myeloid leukemia”) to be used for scoring with phenolyzer. An example command for running phenolyzer is provided below:</p>
+<p>We create another text file, named
+<code>phenolyzer_disease.txt</code>, containing the phenotype
+(i.e. cancer type. in this case “acute myeloid leukemia”) to be used for
+scoring with phenolyzer. An example command for running phenolyzer is
+provided below:</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">perl</span> ~/phenolyzer/disease_annotation.pl <span class="at">-f</span> phenolyzer_disease.txt <span class="at">-prediction</span> <span class="at">-phenotype</span> <span class="at">-logistic</span> <span class="at">--gene</span> input_genes.txt <span class="at">-out</span> phenolyzer_out/example</span></code></pre></div>
-<p>This should produce, among other outputs, the annotated_gene_list output file. An example annotated_gene_list output file for the cohort-level data is provided within the package:</p>
+<p>This should produce, among other outputs, the annotated_gene_list
+output file. An example annotated_gene_list output file for the
+cohort-level data is provided within the package:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>path2phenolyzer_out <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;extdata/example_cohort.annotated_gene_list&quot;</span>,</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">package =</span> <span class="st">&quot;driveR&quot;</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="create-the-features-data-frame-1" class="section level2">
 <h2>Create the features data frame</h2>
-<p>After creating the necessary input data (as detailed above), we simply run <code>create_features_df()</code> to obtain the features data frame. Notice that we set <code>batch_analysis = TRUE</code>. When <code>batch_analysis = TRUE</code>, both the ANNOVAR output and the SCNA table should have a column named ‘tumor_id’.</p>
+<p>After creating the necessary input data (as detailed above), we
+simply run <code>create_features_df()</code> to obtain the features data
+frame. Notice that we set <code>batch_analysis = TRUE</code>. When
+<code>batch_analysis = TRUE</code>, both the ANNOVAR output and the SCNA
+table should have a column named ‘tumor_id’.</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>features_df <span class="ot">&lt;-</span> <span class="fu">create_features_df</span>(<span class="at">annovar_csv_path =</span> path2annovar_csv,</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">scna_df =</span> example_cohort_scna_table, </span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">phenolyzer_annotated_gene_list_path =</span> path2phenolyzer_out,</span>
@@ -410,7 +695,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="prioritize-cancer-driver-genes-1" class="section level2">
 <h2>Prioritize cancer driver genes</h2>
-<p>Finally, we can prioritize cancer driver genes using <code>prioritize_driver_genes()</code>.</p>
+<p>Finally, we can prioritize cancer driver genes using
+<code>prioritize_driver_genes()</code>.</p>
 <p>Below is the example run for the acute myeloid leukemia cohort:</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>driver_prob_df <span class="ot">&lt;-</span> <span class="fu">prioritize_driver_genes</span>(<span class="at">features_df =</span> features_df,</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>                                          <span class="at">cancer_type =</span> <span class="st">&quot;LAML&quot;</span>)</span>
@@ -426,13 +712,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 67         MDM4       0.2396303 non-driver</span></span>
 <span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 324       TRAF3       0.2383674 non-driver</span></span>
 <span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 359      PIEZO1       0.2371796 non-driver</span></span></code></pre></div>
-<p>Once again, in the above example, the top 10 genes contain recognizable cancer driver genes.</p>
+<p>Once again, in the above example, the top 10 genes contain
+recognizable cancer driver genes.</p>
 </div>
 </div>
-<div class="footnotes">
+<div class="footnotes footnotes-end-of-document">
 <hr />
 <ol>
-<li id="fn1"><p>Imielinski M, Greulich H, Kaplan B, et al. Oncogenic and sorafenib-sensitive ARAF mutations in lung adenocarcinoma. J Clin Invest. 2014;124(4):1582-6.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p>Imielinski M, Greulich H, Kaplan B, et al. Oncogenic and
+sorafenib-sensitive ARAF mutations in lung adenocarcinoma. J Clin
+Invest. 2014;124(4):1582-6.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 
