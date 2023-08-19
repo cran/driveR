@@ -1,9 +1,12 @@
+# driveR 0.4.1
+
+## Minor changes and bug fixes
+- fixed a CRAN error due to a package documentation issue (#7)
+
 # driveR 0.4.0
 
 ## Major Changes
 - Added GRCh38 support
-
-***
 
 # driveR 0.3.0
 
@@ -12,8 +15,6 @@
 
 ## Minor changes and bug fixes
 - Updated citation to the method's article where necessary
-
-***
 
 # driveR 0.2.1
 
@@ -26,8 +27,6 @@
 
 - Made use of `caret::predict.train` explicit
 - Removed 'Homo.sapiens' from Imports field (not used)
-
-***
 
 # driveR 0.2.0
 
@@ -43,8 +42,6 @@
 - Added the `na.string` argument to `create_noncoding_impact_score_df()`, `predict_coding_impact()` and `create_features_df()` as the string that was used to indicate when a score is not available during annotation with ANNOVAR (default = ".")
 - Generalized `determine_hotspot_genes()` to able to use occurrence annotations from different versions of COSMIC 
 - Updated all data
-
-***
 
 # driver 0.1.1
 
